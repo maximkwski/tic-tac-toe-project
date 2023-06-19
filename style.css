@@ -12,13 +12,38 @@
     background-color: antiquewhite;
 }
 
-.gameboard {
+.board {
     display: grid;
     gap: 2px;
     grid-template-columns: repeat(3, 150px);
     grid-template-rows: repeat(3, 150px);
+
+    /* width: 300px; */
+    /* margin: 50px auto; */
 }
 
-.item {
+.board>div {
     border: 1px solid black;
+    font-size: 2em;
+    cursor: pointer;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
+
+/* .board {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-gap: 10px;
+    width: 300px;
+    margin: 50px auto;
+  }
+  
+  .board > div {
+    border: 1px solid black;
+    font-size: 2em;
+    text-align: center;
+    cursor: pointer;
+    padding: 20px 0;
+  } */
