@@ -4,19 +4,44 @@
     box-sizing: border-box;
 }
 
+.header,
+.players-tab {
+    border: 1px solid black;
+}
+
 .container {
     display: grid;
     place-items: center;
-
+    margin: 10px;
     height: 100vh;
+    border: 1px solid black;
+    border-radius: 10px;
     background-color: antiquewhite;
 }
+
+/* .players-tab {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: repeat(2, 1fr);
+    gap: 6px;
+}
+
+.players-tab .score {
+    grid-column: 1 / -1;
+    grid-row: 2 / -1;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+} */
+
+
 
 .board {
     display: grid;
     gap: 2px;
-    grid-template-columns: repeat(3, 150px);
-    grid-template-rows: repeat(3, 150px);
+    grid-template-columns: repeat(3, 100px);
+    grid-template-rows: repeat(3, 100px);
 
     /* width: 300px; */
     /* margin: 50px auto; */
@@ -32,18 +57,6 @@
     align-items: center;
 }
 
-/* .board {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    grid-gap: 10px;
-    width: 300px;
-    margin: 50px auto;
-  }
-  
-  .board > div {
-    border: 1px solid black;
-    font-size: 2em;
-    text-align: center;
-    cursor: pointer;
-    padding: 20px 0;
-  } */
+.winning-cell {
+    background-color: aquamarine;
+}
