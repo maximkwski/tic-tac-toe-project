@@ -16,6 +16,7 @@ const Game = (() => {
     const cells = document.querySelectorAll('.board > div');
     let turnDisplay = document.querySelector('#players-turn > p');
     let scoreTab = document.querySelectorAll('.score > div');
+    let winningCells = null;
     
  
   
@@ -54,14 +55,19 @@ const Game = (() => {
         updateDisplay();
         
         checkWin();
-        currentPlayer = currentPlayer === players[0] ? players[1] : players[0];
         updateTurnDisplay();
       }
     };
     
     //Update players turn  display
     const updateTurnDisplay = () => {
-        turnDisplay.innerHTML = `It's ${currentPlayer.name}'s turn!`;
+        if (winningCells){
+            turnDisplay.innerHTML = `${currentPlayer.name} wins!`;
+        } else if (!board.includes('')){
+            turnDisplay.innerHTML = `It's a tie!`
+        } else {
+            turnDisplay.innerHTML = `It's ${currentPlayer.name}'s turn!`;
+        }
     }
 
     // Update the display
@@ -75,7 +81,6 @@ const Game = (() => {
         currentPlayer.score++;
         scoreTab[0].innerHTML = players[0].score;
         scoreTab[1].innerHTML = players[1].score;
-        console.log(currentPlayer.score);
     };
   
     // Check for a win
@@ -86,7 +91,8 @@ const Game = (() => {
         [0, 4, 8], [2, 4, 6]              // Diagonals
       ];
       
-        let winningCells = null;
+        
+        
 
         for (const condition of winConditions) {
         const [a, b, c] = condition;
@@ -96,7 +102,6 @@ const Game = (() => {
             }
         }
 
-
         if (winningCells) {
             updateDisplay();
             winningCells.forEach(position => {
@@ -105,16 +110,30 @@ const Game = (() => {
             });
             
             updateScore();
-            alert(`${currentPlayer.name} wins!`);
+            console.log(`${currentPlayer.name} wins!`);
+
+            
             // resetGame();
             return;
         }
   
-        if (!board.includes('')) {
-        alert('It\'s a tie!');
-        // resetGame();
-        }
-    };
+        // if (!board.includes('')) {
+        // alert('It\'s a tie!');
+        // // resetGame();
+        // }
+    
+        //removeEventListener 
+            cells.forEach((cell, index) => {
+                cell.removeEventListener('click', () => {
+                    makeMove(index);
+                })
+            });
+        
+        //next player turn
+        currentPlayer = currentPlayer === players[0] ? players[1] : players[0];
+    }
+
+    //const clearBoard 
 
     // Reset the game
     const resetGame = () => {
@@ -143,6 +162,8 @@ document.getElementById("myForm").addEventListener("submit", function(event) {
     Game.init();
 });
 
+//reset the game
+
 document.getElementById('reset').addEventListener("click", () => {
     Game.resetGame();
-})
+});
