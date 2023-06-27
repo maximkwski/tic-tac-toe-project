@@ -16,13 +16,13 @@ const Game = (() => {
     const cells = document.querySelectorAll('.board > div');
     let turnDisplay = document.querySelector('#players-turn > p');
     let scoreTab = document.querySelectorAll('.score > div');
+    const nextRoundBtn = document.querySelector('#next');
     let winningCells = null;
     
  
   
     // Initialize the game
     const init = () => { 
-      console.log(scoreTab);
       // Create players
       const player1val = document.getElementById('name1').value;
       const player2val = document.getElementById('name2').value;  
@@ -50,13 +50,14 @@ const Game = (() => {
   
     // Make a move
     const makeMove = (index) => {
-      if (board[index] === '') {
-        board[index] = currentPlayer.marker;
-        updateDisplay();
-        
-        checkWin();
-        updateTurnDisplay();
-      }
+        if (board[index] === '' && turnDisplay.innerHTML === `It's ${currentPlayer.name}'s turn!`) {   
+            board[index] = currentPlayer.marker;
+            updateDisplay();
+            
+            
+            checkWin();
+            updateTurnDisplay();
+        }
     };
     
     //Update players turn  display
@@ -111,41 +112,26 @@ const Game = (() => {
             
             updateScore();
             console.log(`${currentPlayer.name} wins!`);
-
-            
-            // resetGame();
+            nextRound();
             return;
         }
-  
-        // if (!board.includes('')) {
-        // alert('It\'s a tie!');
-        // // resetGame();
-        // }
-    
-        //removeEventListener 
-            cells.forEach((cell, index) => {
-                cell.removeEventListener('click', () => {
-                    makeMove(index);
-                })
-            });
         
         //next player turn
         currentPlayer = currentPlayer === players[0] ? players[1] : players[0];
+        
     }
 
-    //const clearBoard 
+    //const clearBoard for next round 
+    const nextRound = () => {
+        nextRoundBtn.addEventListener('click', () => {
+            board = ['', '', '', '', '', '', '', '', ''];
+            console.log(currentPlayer);
+        });
+    };
+
 
     // Reset the game
     const resetGame = () => {
-        // board = ['', '', '', '', '', '', '', '', ''];
-        // document.getElementById('myForm').reset();
-        // // currentPlayer = null;
-        // players = [];
-        // console.log(currentPlayer);
-        // console.log(players);
-        
-
-        // updateDisplay();
         window.location.reload();
       };
 
