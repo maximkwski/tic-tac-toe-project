@@ -143,8 +143,6 @@ const Game = (() => {
             
             turnDisplay.innerHTML = `It's ${currentPlayer.name}'s turn!`;
             winningCells = null;
-
-            console.log(currentPlayer);
         });
     };
 
