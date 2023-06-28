@@ -66,10 +66,14 @@ const Game = (() => {
             turnDisplay.innerHTML = `${currentPlayer.name} wins!`;
         } else if (!board.includes('')){
             turnDisplay.innerHTML = `It's a tie!`
+            cells.forEach(cell => {
+                cell.classList.add('tie-cell');
+            });
+            nextRound();
         } else {
             turnDisplay.innerHTML = `It's ${currentPlayer.name}'s turn!`;
         }
-    }
+    };
 
     // Update the display
     const updateDisplay = () => {
@@ -111,7 +115,6 @@ const Game = (() => {
             });
             
             updateScore();
-            console.log(`${currentPlayer.name} wins!`);
             nextRound();
             return;
         }
@@ -125,6 +128,22 @@ const Game = (() => {
     const nextRound = () => {
         nextRoundBtn.addEventListener('click', () => {
             board = ['', '', '', '', '', '', '', '', ''];
+            updateDisplay();
+            if (winningCells) {
+                winningCells.forEach(position => {
+                    cells[position].classList.remove('winning-cell');
+                });
+            }
+
+            if  (turnDisplay.innerHTML === `It's a tie!`) {
+                cells.forEach(cell => {
+                    cell.classList.remove('tie-cell');
+                });
+            }
+            
+            turnDisplay.innerHTML = `It's ${currentPlayer.name}'s turn!`;
+            winningCells = null;
+
             console.log(currentPlayer);
         });
     };
@@ -141,11 +160,14 @@ const Game = (() => {
   
 // Start the game
 
+
+
 document.getElementById("myForm").addEventListener("submit", function(event) {
     event.preventDefault();
 
 
     Game.init();
+    document.getElementById('start').style.display = "none";
 });
 
 //reset the game

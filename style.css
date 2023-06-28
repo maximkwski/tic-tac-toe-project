@@ -60,3 +60,7 @@
 .winning-cell {
     background-color: aquamarine;
 }
+
+.tie-cell {
+    background-color: rgb(219, 67, 67);
+}
