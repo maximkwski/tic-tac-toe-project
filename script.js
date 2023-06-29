@@ -34,7 +34,10 @@ const Game = (() => {
       currentPlayer = player1;
       board = ['', '', '', '', '', '', '', '', ''];
       scoreTab[0].innerHTML = player1.score;
-      scoreTab[1].innerHTML = player1.score;
+      scoreTab[1].innerHTML = player2.score;
+      
+      scoreTab[0].style.display = "flex";
+      scoreTab[1].style.display = "flex";
       
       
       // Attach event listeners to cells
@@ -43,7 +46,6 @@ const Game = (() => {
           makeMove(index);
         });
       });
-  
       updateDisplay();
       updateTurnDisplay();
     };
@@ -166,6 +168,7 @@ document.getElementById("myForm").addEventListener("submit", function(event) {
 
     Game.init();
     document.getElementById('start').style.display = "none";
+
 });
 
 //reset the game
